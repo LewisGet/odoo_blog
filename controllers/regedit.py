@@ -85,3 +85,24 @@ class Regedit(http.Controller):
             return method[index]
         except:
             return default
+
+    @http.route('/set_steam_url', type="http", auth='public')
+    def hello(self, **get):
+        uid = request.session.authenticate(get['db'], login=get['username'], password=get['password'])
+
+        try:
+            return """
+            <form action="/get_steam_content" method="get">
+                <p>
+                    <span>網址：</span><input type="text" name="url" />
+                    <input  type="hidden" name="db" value="{db}" />
+                    <input  type="hidden" name="username" value="{username}" />
+                    <input  type="hidden" name="password" value="{password}" />
+                </p>
+                <p>
+                    <button type="submit">送出</button>
+                </p>
+            </form>
+            """.format(db=get['db'], username=get['username'], password=get['password'])
+        except Exception as e:
+            return str(e)
