@@ -38,7 +38,13 @@ class Regedit(http.Controller):
             from bs4 import BeautifulSoup
 
             uid = request.session.authenticate(get['db'], login=get['username'], password=get['password'])
+
+            cookie = self.default_url_arg(get, 'cookie', '')
             headers = {"Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4"}
+
+            if cookie is not '':
+                headers['Cookie'] = cookie
+
             recieve = web_request.get(get['url'], headers=headers)
 
             htmlSelector = BeautifulSoup(recieve.content)
