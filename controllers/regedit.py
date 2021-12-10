@@ -39,7 +39,8 @@ class Regedit(http.Controller):
 
             uid = request.session.authenticate(get['db'], login=get['username'], password=get['password'])
 
-            cookie = self.default_url_arg(get, 'cookie', '')
+            # 預設 cookie 讓他掠過年齡限制
+            cookie = self.default_url_arg(get, 'cookie', 'wants_mature_content=1; birthtime=188150401')
             headers = {"Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4"}
 
             if cookie is not '':
